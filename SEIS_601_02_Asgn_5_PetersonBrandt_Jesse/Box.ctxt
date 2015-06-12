@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=X\ Y\ l\ w\ c
+comment0.target=Box(int,\ int,\ int,\ int,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ getColor()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Box\r\n
+comment2.params=c
+comment2.target=void\ setColor(java.lang.String)
+comment3.params=
+comment3.target=void\ dump()
+numComments=4
