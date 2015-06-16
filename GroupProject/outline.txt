@@ -1,0 +1,73 @@
+Tree
+
+private double fitnessScore;
+
+getFitnessScore() returns fitnessScore
+
+public void calculateFitnessScore()
+{
+get(xArray); provided by main
+get(yArray);
+for(x values in array)
+{
+plug x into formula
+fitnessScore = sum(abs(y - formula output))
+}
+}
+
+new Tree
+
+mutate()
+{
+select random node in tree
+replace contents of node
+easy: replace contents with similar (number or x vs. operator)
+hard: replace contents with random and alter tree if necessary
+return mutatedTree;
+}
+
+crossover
+{
+select random node1 from tree1 and node2 from tree2
+combine subtree1 and subtree2
+how to combine? subtree1 = top of tree, subtree2 connected to the bottom?
+return combinedTree;
+}
+
+
+
+main
+
+take input:
+xArray = testing x values;
+yArray = testing y values;
+crossover %
+mutate %
+individuals per generation (i think we should cut this)
+other things?
+
+array of trees (first generation)
+
+for(x in xArray)
+{
+calculateFitnessScore(x);
+sort trees by fitness score
+}
+
+if(best fitnessScore == 0)
+{
+return formula;
+}
+
+else
+{
+discard worst trees
+	we can decide this %. not related to crossover%/mutate%
+keep best fit trees (1-(crossover % + mutate%))
+select trees to crossover based on fitnessScore (lower fitnessScore = higher chances)
+	trees can crossover multiple times
+select trees to mutate
+App.main(new array of trees)
+}
+
+
