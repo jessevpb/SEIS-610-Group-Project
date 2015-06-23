@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.params=
+comment0.target=void\ printValue()
+comment1.params=
+comment1.target=int\ getIndex()
+comment2.params=x
+comment2.target=Node(int)
+comment2.text=\r\n\ Constructor\ for\ objects\ of\ class\ Node\r\n
+numComments=3
