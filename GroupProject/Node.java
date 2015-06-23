@@ -31,7 +31,6 @@ public class Node
         Double random = Math.random();
         random = Math.floor(random*15)+1;
         
-
         switch(random.intValue())
         {
             case 1: value = "1";
