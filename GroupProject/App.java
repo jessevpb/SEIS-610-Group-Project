@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class App
 {
 
-    public static void main(String[] args)
+    public static void main(Evcompra[])
     {
 
         //take input crossover %
@@ -39,40 +39,48 @@ public class App
         {
             testTrees[i] = new Evcompra();            
             fitnessScores[i] = getFitness(testTrees[i]);
-        }              
-
-        for(i = 0; i < 40; i++)
-        {            
-            if(testTrees[i].getFitness() < fitnessThreshold)
-            {
-                survivingTrees[j] = testTrees[i];
-                j++;
-            }
         }
 
-        for(i = 0; i < crossoverNumber; i++)
-        {         
-            //crossover a portion of two trees                        
-
-        }
-
-        for(i = crossoverNumber+1; i < mutateNumber; i++)
+        if(fitnessScores[0] == 0)
         {
-            //mutate a portion of trees
-
+            fitnessScores[0].printEquation();
         }
 
-        j = mutateNumber + 1;
-
-        for(i = 0; i < testTrees.length(); i++)
+        else
         {
-            if(testTrees[i].getFitness() < fitnessScores[remaining])
-            {
-                newTrees[j] = testTrees[i];
-                j++;
+            for(i = 0; i < 40; i++)
+            {            
+                if(testTrees[i].getFitness() < fitnessThreshold)
+                {
+                    survivingTrees[j] = testTrees[i];
+                    j++;
+                }
             }
-        }
 
+            for(i = 0; i < crossoverNumber; i++)
+            {         
+                //crossover a portion of two trees                        
+
+            }
+
+            for(i = crossoverNumber+1; i < mutateNumber; i++)
+            {
+                //mutate a portion of trees
+
+            }
+
+            j = mutateNumber + 1;
+
+            for(i = 0; i < testTrees.length(); i++)
+            {
+                if(testTrees[i].getFitness() < fitnessScores[remaining])
+                {
+                    newTrees[j] = testTrees[i];
+                    j++;
+                }
+            }
+
+        }
     }
 
     private static double checkFitnessScore(Tree t)

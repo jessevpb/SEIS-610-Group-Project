@@ -1,4 +1,4 @@
- 
+ //package seis610.group;
 
 public class Evcompra
 {
@@ -30,6 +30,11 @@ public class Evcompra
 		
 		return out;
 	}
+	
+	public double getFitness()
+	{
+	   return fitness;
+	   }
 	
 //	public void fillTreeStr(Node n) // inorder 
 //	{
