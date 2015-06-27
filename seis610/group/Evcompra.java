@@ -11,7 +11,7 @@ public class Evcompra
 	int height;
 	String treeStr = "";
 	double fitness = -1;
-	double MUTATIONRATE = 0.25;
+	double MUTATIONRATE = 0.05;
 	Stack<Double> evalSt = new Stack<Double>();
 	
 	// ASCII char values of the operator symbols, the letter x, and the character for 0
@@ -169,37 +169,38 @@ public class Evcompra
 		double op1, op2;
 		for(int i = 0; i < exprlen; i++)
 		{
-			System.out.println("["+ i + "]:" + treeStr.charAt(i));
+			//System.out.println("["+ i + "]:" + treeStr.charAt(i));
 			switch( this.treeStr.charAt(i) )
 			{
 				case '+':
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
-					System.out.println(op1 + " + " + op2 + " = " + (op1+op2));
+					//System.out.println(op1 + " + " + op2 + " = " + (op1+op2));
 					evalSt.push(op1 + op2);
 					break;
 				case '-':
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
-					System.out.println(op1 + " - " + op2 + " = " + (op1 - op2));
+					//System.out.println(op1 + " - " + op2 + " = " + (op1 - op2));
 					evalSt.push(op1 - op2);
 					break;
 				case '*':
 					// System.out.println(treeStr.charAt(i));
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
-					System.out.println(op1 + " * " + op2 + " = " + (op1 * op2));
+					//System.out.println(op1 + " * " + op2 + " = " + (op1 * op2));
 					evalSt.push(op1 * op2);
 					break;
 				case '/':
 					// System.out.println(treeStr.charAt(i));
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
-					System.out.println(op1 + " / " + op2 + " = " + (op1 / op2));
+					//System.out.println(op1 + " / " + op2 + " = " + (op1 / op2));
+					if(op2 == 0) return 1000000;
 					evalSt.push(op1 / op2);
 					break;
 				case 'x':
-					System.out.println(treeStr.charAt(i));
+					//System.out.println(treeStr.charAt(i));
 					evalSt.push(xValue);
 					break;
 				case '0':
@@ -268,6 +269,27 @@ public class Evcompra
 		this.fitness = fts;
 	}
 
+	public void setFitness(double trainingData[][]) // Each row is an [x][y], or [input][output], pair
+	{
+		this.fitness = 0;
+		double xTr, yTr, yEval, fit;
+		int tdLen = trainingData[0].length;
+		//int len1 = trainingData.length;
+		//int len2 = trainingData[0].length;
+		//System.out.println("len1=" + len1);
+		//System.out.println("len2=" + len2);
+		for(int i = 0; i < tdLen; i++)
+		{
+			xTr = trainingData[0][i]; yTr = trainingData[1][i];
+			yEval = evaluate(xTr);
+			System.out.printf("x input: %.2f, y expected: %.2f, y evaluated: %.2f\n",xTr,yTr,yEval);
+			
+			fit = Math.abs( yEval - yTr );
+			System.out.printf("Point fitness: abs( %.2f - %.2f ) = %.2f\n\n", yTr, yEval, fit);
+			fitness += fit;
+		}
+	}
+
 	public void mutateTree(Node n)
 	{
 		if(n == null) return;
@@ -279,5 +301,5 @@ public class Evcompra
 			else n.setValue(randOperator());
 		}
 	}
-	
+
 }

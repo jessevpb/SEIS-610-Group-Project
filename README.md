@@ -50,9 +50,18 @@ Shows how to traverse a string by using `str.charAt(i)`. Avoid a repeated functi
 ## Changes 6-26
 Ed Bernal has been working on the files in the "seis610" folder. The files are all in the "seis610.group" package.
 You can remove the "package" lines (or comment them out) to run without them. Sorry, it's how Eclipse sets them up.
-* Evcompra.evaluate(x) now evaluates the Evcompra.treeStr using a stack, visible from App.java
-* Evcompra.mutateTree() mutates possibly each node of the tree, and Evcompra now has member MUTATIONRATE
-  The method visits each node of the tree and mutates it to the proper type (operator --> operator, operand --> operand) if the result of Math.random() <= MUTATIONRATE. This can be seen running App.java, and is more noticable if the rate is set high, say 0.25 or more and you run App.java a few times.
+* `Evcompra.evaluate()` now evaluates the `Evcompra.treeStr` using a stack, visible from `App.java`
+* `Evcompra.mutateTree()` mutates possibly each node of the tree, and `Evcompra` now has member `MUTATIONRATE`.
+  The method visits each node of the tree and mutates it to the proper type (operator --> operator, operand --> operand) if the result of `Math.random() <= MUTATIONRATE`. This can be seen running `App.java`, and is more noticable if the rate is set high, say 0.25 or more and you run `App.java` a few times.
 * Still need
   - fitness() of the tree
   - crossover() of two trees
+
+
+## Changes 6-27
+
+The `Evcompra.setFitness()` method consumes training data as a `double[][]` array, where the top row is the input values and bottom is the expected output. For now the division by zero returns the error for that data point of 1,000,000; from testing, this seems to be a sufficiently high number to mark *un*fitness. `App.java` line 21 has the current training data of only 5 input/output pairs. Feel free to add more data.
+
+* Still need
+  - crossover() of two trees
+  - Putting a population into a generation and finding the top 20%, crossing them over for the next generation, mutation of some of the best in the current generation, and creating the rest of the next generation.
