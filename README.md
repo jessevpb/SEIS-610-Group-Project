@@ -49,6 +49,7 @@ Shows how to traverse a string by using `str.charAt(i)`. Avoid a repeated functi
 
 ## Changes 6-26
 Ed Bernal has been working on the files in the "seis610" folder. The files are all in the "seis610.group" package.
+You can remove the "package" lines (or comment them out) to run without them. Sorry, it's how Eclipse sets them up.
 * Evcompra.evaluate(x) now evaluates the Evcompra.treeStr using a stack, visible from App.java
 * Still need
   - fitness() of the tree
