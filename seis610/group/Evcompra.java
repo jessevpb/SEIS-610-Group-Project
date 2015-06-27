@@ -11,6 +11,7 @@ public class Evcompra
 	int height;
 	String treeStr = "";
 	double fitness = -1;
+	double MUTATIONRATE = 0.25;
 	Stack<Double> evalSt = new Stack<Double>();
 	
 	// ASCII char values of the operator symbols, the letter x, and the character for 0
@@ -266,4 +267,17 @@ public class Evcompra
 	{
 		this.fitness = fts;
 	}
+
+	public void mutateTree(Node n)
+	{
+		if(n == null) return;
+		mutateTree(n.getLeft());
+		mutateTree(n.getRight());
+		if(Math.random() <= MUTATIONRATE)
+		{
+			if( (int)(n.getValue() ) >= cZero) n.setValue(randOperand());
+			else n.setValue(randOperator());
+		}
+	}
+	
 }

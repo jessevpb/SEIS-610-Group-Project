@@ -70,6 +70,13 @@ public class App {
 		System.out.println();
 		System.out.println("treeStr: " + evct2.treeStr);
 		System.out.println("Evaluate at x = 5.5: " + evct2.evaluate(5.5) );
+		
+		System.out.println("\nTesting mutateTree():\nx.treeStr:  " + x.treeStr);
+		x.mutateTree(x.tree[1]);
+		x.treeStr = "";
+		x.fillTreeStr(x.tree[1]);
+		System.out.println("x\'.treeStr: " + x.treeStr);
+		
 	}
 
 }

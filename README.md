@@ -52,7 +52,7 @@ Ed Bernal has been working on the files in the "seis610" folder. The files are a
 You can remove the "package" lines (or comment them out) to run without them. Sorry, it's how Eclipse sets them up.
 * Evcompra.evaluate(x) now evaluates the Evcompra.treeStr using a stack, visible from App.java
 * Evcompra.mutateTree() mutates possibly each node of the tree, and Evcompra now has member MUTATIONRATE
-  The method visits each node of the tree and mutates it to the proper type (operator --> operator, operand --> operand) if the result of Math.random() <= MUTATIONRATE. This can be seen running App.java.
+  The method visits each node of the tree and mutates it to the proper type (operator --> operator, operand --> operand) if the result of Math.random() <= MUTATIONRATE. This can be seen running App.java, and is more noticable if the rate is set high, say 0.25 or more and you run App.java a few times.
 * Still need
   - fitness() of the tree
   - crossover() of two trees

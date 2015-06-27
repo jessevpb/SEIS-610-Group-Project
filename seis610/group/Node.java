@@ -92,15 +92,15 @@ public class Node {
 	/**
 	 * @return the flag
 	 */
-	public boolean isFlag() {
+	public boolean getFlag() {
 		return flag;
 	}
 
 	/**
-	 * @param flag the flag to set
+	 * @param flagVal the value to set flag to
 	 */
-	public void setFlag(boolean flag) {
-		this.flag = flag;
+	public void setFlag(boolean flagVal) {
+		flag = flagVal;
 	}
 
 	/**
