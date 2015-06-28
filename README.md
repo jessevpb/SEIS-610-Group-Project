@@ -65,3 +65,10 @@ The `Evcompra.setFitness()` method consumes training data as a `double[][]` arra
 * Still need
   - crossover() of two trees
   - Putting a population into a generation and finding the top 20%, crossing them over for the next generation, mutation of some of the best in the current generation, and creating the rest of the next generation.
+
+## changes 6-28
+
+The `Evcompra.crossWith()` method appears to work.It's hard to take a postorder traversal and turn in back into a binary tree. The method mutates the caller, and the `treeStr` before and after are different. After a successful crossover, the evaluattion succeeds, so it's crossing over sanely.
+
+* Still need
+  - Putting a population into a generation and finding the top 20%, crossing them over for the next generation, mutation of some of the best in the current generation, and creating the rest of the next generation.

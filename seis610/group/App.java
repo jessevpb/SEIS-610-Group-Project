@@ -22,6 +22,7 @@ public class App {
 				new double[] {-2, -1, 0, 1, 2},
 				new double[] {7, 4, 3, 4, 7}	};
 
+// <editor-fold defaultstate="collapsed" desc=" DESCRIPTION ">
 //		for(int row = 0; row < td.length; row++)
 //		{
 //			for(int col = 0; col < td[0].length; col++)
@@ -35,18 +36,17 @@ public class App {
 //			}
 //			System.out.println();
 //		}
-		//evct1.fillTree(evct1.tree[1]);
+            //evct1.fillTree(evct1.tree[1]);
+// </editor-fold>
+		//System.out.println("\ntd.length = " + td.length);
 		
-		System.out.println("\ntd.length = " + td.length);
-		
+// <editor-fold defaultstate="collapsed" desc=" DESCRIPTION ">
 //		for(int i = 1; i < out.tree.length; i++)
 //		{ //copy tree, replacing nulls with spaces
 //			char v;
 //			v = (evct1.tree[i] != null) ? evct1.tree[i].getValue() : ' ';
 //			out.tree[i] = new Node(v);
 //		}
-		
-
 //		for(int i = 0; i < evct1.tree.length ; i++)
 //		{
 //			if(evct1.tree[i] == null) continue;
@@ -56,43 +56,51 @@ public class App {
 //				}
 //
 //		}
-	
 		//evct1.fillTreeStr(evct1.tree[1]);
 //		System.out.println("treeStr: " + evct1.treeStr);
 //		System.out.println("treeStr eval: " + evct1.getEvalString(5.4));
-		
 //		x = evct1.copySelf();
 //		
 //		x.fillTreeStr(x.tree[1]);
 //		System.out.println("\nx.treeStr: " + x.treeStr);
-		//x.setHeight();
-	//	System.out.println("x.tree height = " + x.getHeight());
-		
+            //x.setHeight();
+            //	System.out.println("x.tree height = " + x.getHeight());
 		//System.out.println("x.treeStr eval: " + x.getEvalString(6.2));
+// </editor-fold>
 		
 		evct1.fillTree(evct1.tree[1]);
 		evct1.fillTreeStr(evct1.tree[1]);
-		System.out.println("evct1 = " + evct1.treeStr);
-		
+		System.out.println("    evct1 = " + evct1.treeStr);
+		System.out.println("eval(1) = " +evct1.evaluate(1) );
+                evct1.setFitness(td);
+                System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
+                
 		evct2.fillTree(evct2.tree[1]);
 		evct2.fillTreeStr(evct2.tree[1]);
-		System.out.println("evct2 = " + evct2.treeStr);
+		System.out.println("\n    evct2 = " + evct2.treeStr);
+		System.out.println("---------\n");
 		
-		evct1.setFitness(td);
-		System.out.println("---------");
-		evct2.setFitness(td);
+		//System.out.println("---------");
+		//evct2.setFitness(td);
 		
-		System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
-		System.out.printf("evct2 fitness = %.2f\n", evct2.getFitness());
+		//System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
+		//System.out.printf("evct2 fitness = %.2f\n", evct2.getFitness());
+                
+                evct1.crossWith(evct1.tree[2], evct2.tree[2], false);
+                evct1.treeStr = "";
+		evct1.fillTreeStr(evct1.tree[1]);
+		System.out.println("\nevct1 = " + evct1.treeStr);                
+                System.out.println("eval(1) = " +evct1.evaluate(1) );
+                evct1.setFitness(td);
+                System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
 		
-		//System.out.println("\nevct2.treeStr: " + evct2.treeStr);
-		
+// <editor-fold defaultstate="collapsed" desc=" DESCRIPTION ">
+            //System.out.println("\nevct2.treeStr: " + evct2.treeStr);
 //		int len = evct2.treeStr.length();
 //		for(int i = 0; i < len; i++ )
 //		{
 //			System.out.print("["+i+"]:" + evct2.treeStr.charAt(i) );
 //		}
-		
 	//	System.out.println("\n****** Testing setHeight() *******");
 //		for(int h = 0; h < 128; h++)
 //		{
@@ -163,6 +171,7 @@ public class App {
 //		System.out.println("y.treeStr:  " + y.treeStr);
 //		System.out.println("\nz original: " + oldZ);
 //		System.out.println("z.treeStr:  " + z.treeStr);
+// </editor-fold>
 		
 		
 	}

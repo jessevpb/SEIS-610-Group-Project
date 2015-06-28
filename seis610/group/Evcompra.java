@@ -12,6 +12,7 @@ public class Evcompra
 	String treeStr = "";
 	double fitness = -1;
 	double MUTATIONRATE = 0.05;
+        double CROSSRATE = 0.8;
 	Stack<Double> evalSt = new Stack<Double>();
 	
 	// ASCII char values of the operator symbols, the letter x, and the character for 0
@@ -196,7 +197,7 @@ public class Evcompra
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
 					//System.out.println(op1 + " / " + op2 + " = " + (op1 / op2));
-					if(op2 == 0) return 1000000;
+					if(op2 == 0) return 10000000;
 					evalSt.push(op1 / op2);
 					break;
 				case 'x':
@@ -282,10 +283,10 @@ public class Evcompra
 		{
 			xTr = trainingData[0][i]; yTr = trainingData[1][i];
 			yEval = evaluate(xTr);
-			System.out.printf("x input: %.2f, y expected: %.2f, y evaluated: %.2f\n",xTr,yTr,yEval);
+			//System.out.printf("x input: %.2f, y expected: %.2f, y evaluated: %.2f\n",xTr,yTr,yEval);
 			
 			fit = Math.abs( yEval - yTr );
-			System.out.printf("Point fitness: abs( %.2f - %.2f ) = %.2f\n\n", yTr, yEval, fit);
+			//System.out.printf("Point fitness: abs( %.2f - %.2f ) = %.2f\n\n", yTr, yEval, fit);
 			fitness += fit;
 		}
 	}
@@ -301,5 +302,35 @@ public class Evcompra
 			else n.setValue(randOperator());
 		}
 	}
+        
+        public void crossWith(Node thisN, Node otherN, boolean isCrossing)
+        {
+            boolean xOver = isCrossing;
+            // At least one is null
+            if(thisN == null || otherN == null){
+               // System.out.println("Both null");
+                return;
+            }
+            // At least one
+            //if( (int)(thisN.getValue()) > cDiv || (int)(otherN.getValue()) > cDiv );
+            if(Math.random() < CROSSRATE) xOver = true;
+            if(!isCrossing){
+                if(isCrossing) System.out.println("isCrossing=true");
+                //if(!isCrossing) System.out.println("Crossing succeeded");
+                crossWith(thisN.getLeft(), otherN.getLeft(), xOver);
+                crossWith(thisN.getRight(), otherN.getRight(), xOver);
+            }
+            else
+            {
+                System.out.println(">< crossover");
+                thisN.setValue(otherN.getValue());
+                thisN.setRight(otherN.getRight());
+                thisN.setLeft(otherN.getLeft());
+                thisN.setIndex(otherN.getIndex());
+                thisN.setHeight(otherN.getHeight());
+                crossWith(thisN.getLeft(), otherN.getLeft(), true);
+                crossWith(thisN.getRight(), otherN.getRight(), true);
+            }
+        }
 
 }
