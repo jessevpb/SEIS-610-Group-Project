@@ -88,4 +88,4 @@ The following all use `operatorProb` as the probability of a node being an opera
 
 The following now take a probabilty rate that should be between 0 and 1; the method doesn't check for this. Sample code is in `TestApp.java`:
 * `mutateTree(Node n, double mutateRate)` 
-* `crossWith(Node thisN, Node otherN, boolean isCrossing, double xRate)
+* `crossWith(Node thisN, Node otherN, boolean isCrossing, double xRate)`
