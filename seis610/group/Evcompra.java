@@ -6,13 +6,14 @@ public class Evcompra
 {
 	int MAXNODES = 128;
 	Node[] tree;
-	int MAXHEIGHT = 5; // maximum height of the tree
-	int OPERANDPROB = 14; // Probability of getting an 'x' is (OPERANDPROB - 10)/OPERANDPROB
+	int MAXHEIGHT = 7; // maximum height of the tree
+	int XOP_PROB = 14; // Probability of getting an 'x' is (OPERANDPROB - 10)/OPERANDPROB
 	int height;
 	String treeStr = "";
+        //String inorder = "";
 	double fitness = -1;
 	double MUTATIONRATE = 0.05;
-        double CROSSRATE = 0.8;
+        //double CROSSRATE = 0.8;
 	Stack<Double> evalSt = new Stack<Double>();
 	
 	// ASCII char values of the operator symbols, the letter x, and the character for 0
@@ -23,6 +24,12 @@ public class Evcompra
 		tree = new Node[MAXNODES];
 		tree[1] = new Node(null, null, randOperator(), true, 1, 1 ); // root node is always an operator node
 	}
+        
+        public Evcompra(int xOpProb){
+            tree = new Node[MAXNODES];
+            tree[1] = new Node(null, null, randOperator(), true, 1, 1 );
+            this.XOP_PROB = xOpProb;
+        }
 	
 	public Evcompra copySelf()
 	{
@@ -35,6 +42,17 @@ public class Evcompra
 		out.height = this.height;
 		return out;
 	}
+        
+//<editor-fold defaultstate="collapsed" desc="comment">
+        /*   public void fillTreeStrIn(Node n) // inorder
+        {
+        if(n == null) return;
+        //treeStr += n.getValue();
+        fillTreeStrIn(n.getLeft());
+        inorder += (n.getValue());
+        fillTreeStrIn(n.getRight());
+        }*/
+//</editor-fold>
 	
 	public void fillTreeStr(Node n) // postorder
 	{
@@ -45,11 +63,22 @@ public class Evcompra
 		treeStr += (n.getValue());
 	}
 	
+        public void initialize(){
+            this.fillTree(this.tree[1]);
+            this.fillTreeStr(this.tree[1]);
+        }
+        
+        public void initialize(double operatorProb){
+            this.fillTree(this.tree[1], operatorProb);
+            this.fillTreeStr(this.tree[1]);
+        }
+        
 	public String getEvalString(double input)
 	{
 		return treeStr.replace("x", (new Double(input)).toString());
 	}
 	
+        // change to take in operatorProb
 	public void fillTree(Node n)
 	{
 		// System.out.println("fillTree( tree[" + n.getIndex() + "] )");
@@ -60,7 +89,19 @@ public class Evcompra
 		fillTree(n.getLeft());
 		fillTree(n.getRight());
 	}
+        
+        public void fillTree(Node n, double operatorProb)
+	{
+		// System.out.println("fillTree( tree[" + n.getIndex() + "] )");
+		if(n == null) return; // can't populate a null
+		if((int)(n.getValue()) >= cZero) return; // operand node has no children
+		makeLeft(n, operatorProb); // populate both children
+		makeRight(n, operatorProb);
+		fillTree(n.getLeft());
+		fillTree(n.getRight());
+	}
 	
+        // change to take in operatorProb
 	public void makeLeft(Node n)
 	{
 		int nValue = (int)(n.getValue());
@@ -96,7 +137,44 @@ public class Evcompra
 			return;
 		}
 	}
+        
+        public void makeLeft(Node n, double operatorProb)
+	{
+		int nValue = (int)(n.getValue());
+		int nHt = n.getHeight();
+		
+		if(nValue >= cZero)
+		{
+			// System.out.println("Can't set n.left, n.value = " + n.getValue() );
+			return;
+		}
+
+		if(nHt < MAXHEIGHT - 1) //node can be operator or operand
+		{
+			int newIndex = n.getIndex() * 2;
+			Node newNode = new Node(randValue(operatorProb), nHt + 1, newIndex );
+			tree[newIndex] = newNode;
+			n.setLeft(newNode);
+			if( (nHt + 1) > this.height) this.height = nHt + 1;
+			
+		}
+		
+		if(nHt == MAXHEIGHT - 1) //newNode.height will be MAXHEIGHT, so it must be an operand
+		{
+			int newIndex = n.getIndex() * 2;
+			Node newNode = new Node(randOperand(), nHt + 1, newIndex );
+			tree[newIndex] = newNode;
+			n.setLeft(newNode);
+			if( (nHt + 1) > this.height) this.height = nHt + 1;
+		}
+		else
+		{
+			//System.out.println("Max height exceeded. Calling left node tree[" + n.getIndex() + "]");
+			return;
+		}
+	}
 	
+        // change to take in operatorProb
 	public void makeRight(Node n)
 	{
 		int nValue = (int)(n.getValue());
@@ -112,6 +190,40 @@ public class Evcompra
 		{
 			int newIndex = n.getIndex() * 2 + 1;
 			Node newNode = new Node(randValue(), nHt + 1, newIndex );
+			tree[newIndex] = newNode;
+			n.setRight(newNode);
+		}
+		
+		if(nHt == (MAXHEIGHT - 1) ) //newNode.height will be MAXHEIGHT, so it must be an operand
+		{
+			int newIndex = n.getIndex() * 2 + 1;
+			Node newNode = new Node(randOperand(), nHt + 1, newIndex );
+			tree[newIndex] = newNode;
+			n.setRight(newNode);
+		}
+		
+		else
+		{
+			//System.out.println("Max height exceeded. Calling right node tree[" + n.getIndex() + "]");
+			return;
+		}
+	}
+        
+        public void makeRight(Node n, double operatorProb)
+	{
+		int nValue = (int)(n.getValue());
+		int nHt = n.getHeight();
+		
+		if(nValue >= cZero)
+		{
+			// System.out.println("Can't set n.right, n.value = " + n.getValue() );
+			return;
+		}
+		
+		if(nHt < (MAXHEIGHT - 1) )
+		{
+			int newIndex = n.getIndex() * 2 + 1;
+			Node newNode = new Node(randValue(operatorProb), nHt + 1, newIndex );
 			tree[newIndex] = newNode;
 			n.setRight(newNode);
 		}
@@ -149,7 +261,7 @@ public class Evcompra
 	
 	public char randOperand()
 	{
-		int r = (int)(Math.random() * OPERANDPROB);
+		int r = (int)(Math.random() * XOP_PROB);
 		if(r < 10) return (char)(r + cZero);
 		return 'x';
 	}
@@ -159,6 +271,15 @@ public class Evcompra
 		char c;
 		int r = (int)(Math.random() * 10);
 		if(r < 4) c = randOperator();
+		else c = randOperand();
+		//System.out.printf("randValue() = %c\n", c); 
+		return c;
+	}
+        
+        public char randValue(double operatorProb)
+	{
+		char c;
+		if(Math.random() < operatorProb) c = randOperator();
 		else c = randOperand();
 		//System.out.printf("randValue() = %c\n", c); 
 		return c;
@@ -197,7 +318,7 @@ public class Evcompra
 					op2 = (double)(evalSt.pop());
 					op1 = (double)(evalSt.pop());
 					//System.out.println(op1 + " / " + op2 + " = " + (op1 / op2));
-					if(op2 == 0) return 10000000;
+					if(op2 == 0) return 1000000;
 					evalSt.push(op1 / op2);
 					break;
 				case 'x':
@@ -270,24 +391,24 @@ public class Evcompra
 		this.fitness = fts;
 	}
 
-	public void setFitness(double trainingData[][]) // Each row is an [x][y], or [input][output], pair
+	public void setFitness(double xData[], double yData[])
 	{
 		this.fitness = 0;
-		double xTr, yTr, yEval, fit;
-		int tdLen = trainingData[0].length;
+		double xTr, yTr, yEval, error;
+		int tdLen = xData.length;
 		//int len1 = trainingData.length;
 		//int len2 = trainingData[0].length;
 		//System.out.println("len1=" + len1);
 		//System.out.println("len2=" + len2);
 		for(int i = 0; i < tdLen; i++)
 		{
-			xTr = trainingData[0][i]; yTr = trainingData[1][i];
+			xTr = xData[i]; yTr = yData[i];
 			yEval = evaluate(xTr);
 			//System.out.printf("x input: %.2f, y expected: %.2f, y evaluated: %.2f\n",xTr,yTr,yEval);
 			
-			fit = Math.abs( yEval - yTr );
+			error = Math.abs( yEval - yTr );
 			//System.out.printf("Point fitness: abs( %.2f - %.2f ) = %.2f\n\n", yTr, yEval, fit);
-			fitness += fit;
+			fitness += error;
 		}
 	}
 
@@ -303,7 +424,19 @@ public class Evcompra
 		}
 	}
         
-        public void crossWith(Node thisN, Node otherN, boolean isCrossing)
+        public void mutateTree(Node n, double mutateRate)
+	{
+		if(n == null) return;
+		mutateTree(n.getLeft(), mutateRate);
+		mutateTree(n.getRight(), mutateRate);
+		if(Math.random() <= mutateRate)
+		{
+			if( (int)(n.getValue() ) >= cZero) n.setValue(randOperand());
+			else n.setValue(randOperator());
+		}
+	}
+        
+        public void crossWith(Node thisN, Node otherN, boolean isCrossing, double xRate)
         {
             boolean xOver = isCrossing;
             // At least one is null
@@ -311,14 +444,11 @@ public class Evcompra
                // System.out.println("Both null");
                 return;
             }
-            // At least one
-            //if( (int)(thisN.getValue()) > cDiv || (int)(otherN.getValue()) > cDiv );
-            if(Math.random() < CROSSRATE) xOver = true;
+
+            if(Math.random() < xRate) xOver = true;
             if(!isCrossing){
-                if(isCrossing) System.out.println("isCrossing=true");
-                //if(!isCrossing) System.out.println("Crossing succeeded");
-                crossWith(thisN.getLeft(), otherN.getLeft(), xOver);
-                crossWith(thisN.getRight(), otherN.getRight(), xOver);
+                crossWith(thisN.getLeft(), otherN.getLeft(), xOver, xRate);
+                crossWith(thisN.getRight(), otherN.getRight(), xOver, xRate);
             }
             else
             {
@@ -328,8 +458,8 @@ public class Evcompra
                 thisN.setLeft(otherN.getLeft());
                 thisN.setIndex(otherN.getIndex());
                 thisN.setHeight(otherN.getHeight());
-                crossWith(thisN.getLeft(), otherN.getLeft(), true);
-                crossWith(thisN.getRight(), otherN.getRight(), true);
+                crossWith(thisN.getLeft(), otherN.getLeft(), true, xRate);
+                crossWith(thisN.getRight(), otherN.getRight(), true, xRate);
             }
         }
 

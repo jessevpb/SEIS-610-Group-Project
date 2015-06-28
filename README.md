@@ -48,7 +48,7 @@ System.out.print("["+i+"]:" + evct2.treeStr.charAt(i) );
 Shows how to traverse a string by using `str.charAt(i)`. Avoid a repeated function call by saving the value of str.length() and using that in the `for()` loop. The processing of each character should go within the statement block.
 
 ## Changes 6-26
-Ed Bernal has been working on the files in the "seis610" folder. The files are all in the "seis610.group" package.
+Ed has been working on the files in the "seis610" folder. The files are all in the "seis610.group" package.
 You can remove the "package" lines (or comment them out) to run without them. Sorry, it's how Eclipse sets them up.
 * `Evcompra.evaluate()` now evaluates the `Evcompra.treeStr` using a stack, visible from `App.java`
 * `Evcompra.mutateTree()` mutates possibly each node of the tree, and `Evcompra` now has member `MUTATIONRATE`.
@@ -68,7 +68,24 @@ The `Evcompra.setFitness()` method consumes training data as a `double[][]` arra
 
 ## changes 6-28
 
-The `Evcompra.crossWith()` method appears to work.It's hard to take a postorder traversal and turn in back into a binary tree. The method mutates the caller, and the `treeStr` before and after are different. After a successful crossover, the evaluattion succeeds, so it's crossing over sanely. Run `App.java` a few times, and if you see ">< crossover" have a look at the first evct1 tree before and compare it to after, and see that the after has some parts of the evct2 tree, and notice that the evaluations and fitness values are different.
+The `Evcompra.crossWith()` method appears to work.It's hard to take a postorder traversal and turn in back into a binary tree. The method mutates the caller, and the `treeStr` before and after are different. After a successful crossover, the evaluation succeeds, so it's crossing over sanely. Run `App.java` a few times, and if you see ">< crossover" have a look at the first evct1 tree before and compare it to after, and see that the after has some parts of the evct2 tree, and notice that the evaluations and fitness values are different.
 
 * Still need
   - Putting a population into a generation and finding the top 20%, crossing them over for the next generation, mutation of some of the best in the current generation, and creating the rest of the next generation.
+
+## Post-meeting changes 6-28
+Ed deleted the `App.java` file to avoid conflicts with the `App.java` that Jesse had been working on. That functionality is now in `TestApp.java`. Made some design changes to `Evcompra` so that `fitness()` takes two `double[]` arrays, for the x and y training data. To allow for ease of testing and flexibility, the following methods now take an addtional parameter to change the probabilities involved:
+
+* `Evcompra(int xOpProb)
+   - The probability of getting an 'x' in `randOperand()` for that tree
+
+The following all use `operatorProb` as the probability of a node being an operator (i.e. one of add, subtract, multiply, or divide) instead of an operand (i.e., 0 - 9 or x). The last four all call `randValue()` directly or indirectly, which is really the only method that uses `operatorProb` directly. The value of `operatorProb` should be between 0 and 1; the method doesn't check for it.Sample code is included in the `TestApp.java` file.
+* `randValue(double operatorProb)`
+* `fillTree(Node n, double operatorProb)`
+* `makeLeft(Node n, double operatorProb)`
+* `makeRight(Node n, double operatorProb)`
+* `initialize(double operatorProb)`
+
+The following now take a probabilty rate that should be between 0 and 1; the method doesn't check for this. Sample code is in `TestApp.java`:
+* `mutateTree(Node n, double mutateRate)` 
+* `crossWith(Node thisN, Node otherN, boolean isCrossing, double xRate)

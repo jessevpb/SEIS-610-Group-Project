@@ -1,8 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package seis610.group;
 
-public class App {
-	
-	public void repChar(char ch, int count)
+/**
+ *
+ * @author Galactus
+ */
+public class TestApp {
+    public void repChar(char ch, int count)
 	{
 		for(int i = 0; i < count; i++) System.out.print(ch);
 	}
@@ -10,17 +18,16 @@ public class App {
 	public static void main(String[] args)
 	{
 		Evcompra evct1 = new Evcompra();
-		Evcompra evct2 = new Evcompra();
+		Evcompra evct2 = new Evcompra(20);
 		Evcompra x = new Evcompra();
 		Evcompra y = new Evcompra();
 		Evcompra z = new Evcompra();
 		Node tempNode;
-		double CROSSRATE = 0.7;
+		double CROSSRATE = 0.9;
 		String oldY, oldZ;
 		
-		double td[][] = new double[][]{ // data for y = x^2 + 3
-				new double[] {-2, -1, 0, 1, 2},
-				new double[] {7, 4, 3, 4, 7}	};
+		double tdX[] = 	new double[] {-2, -1, 0, 1, 2};
+		double tdY[] = 	new double[] {7, 4, 3, 4, 7};
 
 // <editor-fold defaultstate="collapsed" desc=" DESCRIPTION ">
 //		for(int row = 0; row < td.length; row++)
@@ -68,16 +75,22 @@ public class App {
 		//System.out.println("x.treeStr eval: " + x.getEvalString(6.2));
 // </editor-fold>
 		
-		evct1.fillTree(evct1.tree[1]);
-		evct1.fillTreeStr(evct1.tree[1]);
-		System.out.println("    evct1 = " + evct1.treeStr);
+		evct1.initialize(0.65);
+                evct2.initialize();
+                //evct1.fillTree(evct1.tree[1]);
+		//evct1.fillTreeStr(evct1.tree[1]);
+                //evct1.fillTreeStrIn(evct1.tree[1]);
+		System.out.println("Post    evct1 = " + evct1.treeStr);
+                //System.out.println("In      evct1 = " + evct1.inorder);
 		System.out.println("eval(1) = " +evct1.evaluate(1) );
-                evct1.setFitness(td);
+                evct1.setFitness(tdX, tdY);
                 System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
                 
-		evct2.fillTree(evct2.tree[1]);
-		evct2.fillTreeStr(evct2.tree[1]);
-		System.out.println("\n    evct2 = " + evct2.treeStr);
+		//evct2.fillTree(evct2.tree[1]);
+		//evct2.fillTreeStr(evct2.tree[1]);
+                //evct2.fillTreeStrIn(evct2.tree[1]);
+		System.out.println("Post    evct2 = " + evct2.treeStr);
+                //System.out.println("In      evct2 = " + evct2.inorder);
 		System.out.println("---------\n");
 		
 		//System.out.println("---------");
@@ -86,12 +99,15 @@ public class App {
 		//System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
 		//System.out.printf("evct2 fitness = %.2f\n", evct2.getFitness());
                 
-                evct1.crossWith(evct1.tree[2], evct2.tree[2], false);
+                evct1.crossWith(evct1.tree[2], evct2.tree[2], false, 0.9);
                 evct1.treeStr = "";
-		evct1.fillTreeStr(evct1.tree[1]);
-		System.out.println("\nevct1 = " + evct1.treeStr);                
-                System.out.println("eval(1) = " +evct1.evaluate(1) );
-                evct1.setFitness(td);
+                //evct1.inorder = "";
+                evct1.fillTreeStr(evct1.tree[1]);
+		//evct1.fillTreeStrIn(evct1.tree[1]);
+		System.out.println("\nPost    evct1 = " + evct1.treeStr);
+                //System.out.println("In      evct1 = " + evct1.inorder);               
+                System.out.println("\n---\neval(1) = " +evct1.evaluate(1) );
+                evct1.setFitness(tdX, tdY);
                 System.out.printf("evct1 fitness = %.2f\n", evct1.getFitness());
 		
 // <editor-fold defaultstate="collapsed" desc=" DESCRIPTION ">
@@ -116,11 +132,12 @@ public class App {
 //		System.out.println("treeStr: " + evct2.treeStr);
 //		System.out.println("Evaluate at x = 5.5: " + evct2.evaluate(5.5) );
 //		
-//		System.out.println("\nTesting mutateTree():\nx.treeStr:  " + x.treeStr);
-//		x.mutateTree(x.tree[1]);
-//		x.treeStr = "";
-//		x.fillTreeStr(x.tree[1]);
-//		//System.out.println("x\'.treeStr: " + x.treeStr + "\n**********\n");
+                x.initialize();
+		System.out.println("\nTesting mutateTree():\nx.treeStr:  " + x.treeStr);
+		x.mutateTree(x.tree[1], 0.35);
+		x.treeStr = "";
+		x.fillTreeStr(x.tree[1]);
+		System.out.println("x\'.treeStr: " + x.treeStr + "\n**********\n");
 //		
 //		y = evct1.copySelf();
 //		y.fillTreeStr(y.tree[1]);
