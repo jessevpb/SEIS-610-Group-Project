@@ -67,7 +67,9 @@ public class App
                 int rand1 = (int)(Math.random()*30);
                 int rand2 = (int)(Math.random()*30);
 
-                if(rand1 = rand2){rand2 -= 1};
+                if(rand1 = rand2)
+                {rand2 -= 1}
+                ;
 
                 tree1 = survivingTrees(rand1);
                 tree1.Initialize();
