@@ -1,110 +1,130 @@
+ 
 
-/**
- * Write a description of class Node here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Node
-{
-    // instance variables - replace the example below with your own
+public class Node {
+	Node left;
+	Node right;
+	char value;
+	boolean flag;
+	int height;
+	int index;
+	
+	public Node()
+	{
+		left = null;
+		right = null;
+		value = ' ';
+		flag = true;
+		height = 0;
+		index = 0;
+	}
 
-    private int index;
-    private String value;
-    
-    public void printValue()
-    {
-        System.out.println(value);
-    }
+	public Node( char c)
+	{
+		super();
+		this.value = c;
+	}
+	
+	public Node( char ch, int ht, int idx)
+	{
+		super();
+		value = ch;
+		height = ht;
+		index = idx;
+	}
 
-    public int getIndex()
-    {
-        return index;
-    }
+	public Node( Node lf, Node rt, char ch, boolean bl, int ht, int idx)
+	{
+		this.left = lf;
+		this.right = rt;
+		this.value = ch;
+		this.flag = bl;
+		this.height = ht;
+		this.index = idx;
+	}
+	
+	public Node copySelf()
+	{
+		return new Node(left, right, value, flag, height, index);
+	}
+	
+	/**
+	 * @return the left
+	 */
+	public Node getLeft() {
+		return left;
+	}
 
-    /**
-     * Constructor for objects of class Node
-     */
-    public Node(int x)
-    {
-        index = x;
-        Double random = Math.random();
-        random = Math.floor(random*15)+1;
-        
-        switch(random.intValue())
-        {
-            case 1: value = "1";
-            break;
-            case 2: value = "2";
-            break;
-            case 3: value = "3";
-            break;
-            case 4: value = "4";
-            break;
-            case 5: value = "5";
-            break;
-            case 6: value = "6";
-            break;
-            case 7: value = "7";
-            break;
-            case 8: value = "8";
-            break;
-            case 9: value = "9";
-            break;
-            case 10: value = "0";
-            break;
-            case 11: value = "x";
-            break;
-            case 12: value = "+";
-            break;
-            case 13: value = "-";
-            break;
-            case 14: value = "/";
-            break;
-            case 15: value = "*";
-            break;
-            default:
-            break;
-        };
-    }
+	/**
+	 * @param left the left to set
+	 */
+	public void setLeft(Node left) {
+		this.left = left;
+	}
 
-    /**
-     * private String value;
+	/**
+	 * @return the right
+	 */
+	public Node getRight() {
+		return right;
+	}
 
-    public String setValue()
-    {
-    Vector vals = 
+	/**
+	 * @param right the right to set
+	 */
+	public void setRight(Node right) {
+		this.right = right;
+	}
 
-    int var = Math.random();
-    if(var >= 0 && var <=9)
-    {
-    return var;
-    }
+	/**
+	 * @return the value
+	 */
+	public char getValue() {
+		return value;
+	}
 
-    if(var == 10)
-    {
-    return "x";
-    }
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(char value) {
+		this.value = value;
+	}
 
-    if(var == 11)
-    {
-    return "+";
-    }
+	/**
+	 * @return the flag
+	 */
+	public boolean getFlag() {
+		return flag;
+	}
 
-    if(var == 12)
-    {
-    return "-";
-    }
+	/**
+	 * @param flagVal the value to set flag to
+	 */
+	public void setFlag(boolean flagVal) {
+		flag = flagVal;
+	}
 
-    if(var == 13)
-    {
-    return "*";
-    }
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
 
-    if(var == 14)
-    {
-    return "/";
-    }
-    }
-     */
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
+	public int getIndex()
+	{
+		return this.index;
+	}
+	
+	public void setIndex(int i)
+	{
+		this.index = i;
+	}
+
 }
