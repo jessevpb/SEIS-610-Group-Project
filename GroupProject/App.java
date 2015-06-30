@@ -36,7 +36,7 @@ public class App
         int mutateNumber = (int)(40 * (crossoverPercent + mutatePercent))-1;
         int remaining = 40 - mutateNumber;
 
-        for(i = 0; i < testTrees.length(); i++)
+        for(i = 0; i < testTrees.length; i++)
         {
             testTrees[i] = new Evcompra();
             testTrees[i].Initialize();            
@@ -68,8 +68,9 @@ public class App
                 int rand2 = (int)(Math.random()*30);
 
                 if(rand1 = rand2)
-                {rand2 -= 1}
-                ;
+                {
+                    rand2 -= 1;
+                }
 
                 tree1 = survivingTrees(rand1);
                 tree1.Initialize();
@@ -99,7 +100,7 @@ public class App
                 }
             }
 
-            main(newTrees[]);
+            main(newTrees[].class);
         }
     }
 

@@ -13,9 +13,9 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.GridLayout;
+import java.awt.*;
 
-public class RunApp extends JFrame{
+public class RunApp extends JFrame implements ActionListener{
 
     JPanel left = new JPanel();
     JPanel right = new JPanel();
@@ -34,7 +34,6 @@ public class RunApp extends JFrame{
 
     public static void main(String[] args){
         new RunApp();
-
     }
 
     public RunApp(){
@@ -57,7 +56,14 @@ public class RunApp extends JFrame{
 
         add(left);
         add(right);
+        
+        b.addActionListener(this);
 
         setVisible(true);
+    }
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        //App.main();
     }
 }
