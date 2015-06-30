@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.*;
+import java.awt.event.*;
 
 public class RunApp extends JFrame implements ActionListener{
 
@@ -43,6 +44,11 @@ public class RunApp extends JFrame implements ActionListener{
         setLocation(500,300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(0,2));
+        {
+            test.addActionListener(this);
+            list.addActionListener(this);
+            clear.addActionListener(this);
+        }
 
         right.add(b);
         right.add(t);
@@ -56,14 +62,19 @@ public class RunApp extends JFrame implements ActionListener{
 
         add(left);
         add(right);
-        
+
         b.addActionListener(this);
 
         setVisible(true);
     }
-    
+
     public void actionPerformed(ActionEvent e)
     {
-        //App.main();
+        Object src = e.getSource();
+        if(src.equals(test))
+        {
+        
+        }
+        App.main();
     }
 }
