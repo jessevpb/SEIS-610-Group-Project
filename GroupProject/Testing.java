@@ -50,7 +50,7 @@ public class Testing
         
         Evcompra tree = new Evcompra();
         tree.getEvalString(2);
-        System.out.println(
+        //System.out.println(
         //double eval1 = tree.evaluate(7);
         //System.out.println(eval1);
         

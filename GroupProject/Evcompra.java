@@ -165,9 +165,7 @@ public class Evcompra
         else c = randOperand();
         //System.out.printf("randValue() = %c\n", c); 
         return c;
-    }
-    
-    
+    }     
 
     public double evaluate(double xValue)
     {
