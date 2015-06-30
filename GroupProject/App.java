@@ -30,7 +30,7 @@ public class App
     public static void main(String[] args)
     {
         Evcompra testTrees[] = new Evcompra[40];
-        double testValuesX[] = {-5, -3, 0, 2, 10};
+        double testValuesX[] = {-5,-3, 0, 2,  10};
         double testValuesY[] = {12, 4, -.5, 1.5, 49.5};
         new App(testTrees, .4, .05, 40, testValuesX, testValuesY);
     }
@@ -45,6 +45,11 @@ public class App
 
     public App(Evcompra[] trees, double crossNum, double mutateNum, int genSize, double testValuesX[], double testValuesY[])
     {
+        
+        for(i = 0; i < genSize; i++)
+        {
+            //trees[i].setFitness(testValuesX);
+        }
         
         double fitnessScores[] = new double[genSize];
         

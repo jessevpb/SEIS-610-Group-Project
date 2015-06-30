@@ -37,7 +37,7 @@ public class Testing
 
         Arrays.sort(random);
 
-        System.out.println(Arrays.toString(random));
+       // System.out.println(Arrays.toString(random));
 
         double crossoverPercent = .1442;
         double mutatePercent = .0544;
@@ -46,6 +46,13 @@ public class Testing
         int mutateNumber = (int)(40 * (crossoverPercent + mutatePercent));
         int remaining = 40 - mutateNumber;
 
-        System.out.println(crossoverNumber + "   " + mutateNumber + "   " + remaining);
+        //System.out.println(crossoverNumber + "   " + mutateNumber + "   " + remaining);
+        
+        Evcompra tree = new Evcompra();
+        tree.getEvalString(2);
+        System.out.println(
+        //double eval1 = tree.evaluate(7);
+        //System.out.println(eval1);
+        
     }
 }
