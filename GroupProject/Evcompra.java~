@@ -273,18 +273,24 @@ public class Evcompra
         this.fitness = fts;
     }
 
-    public void setFitness(double xData[], double yData[]) 
+    public void setFitness(double xData[], yData[]) 
     {
         this.fitness = 0;
-        double xTr, yTr, yEval, error;
+        double xTr, yTr, yEval, fit;
         int tdLen = xData.length; // assumes input arrays are the same length
-
+        //int len1 = trainingData.length;
+        //int len2 = trainingData[0].length;
+        //System.out.println("len1=" + len1);
+        //System.out.println("len2=" + len2);
         for(int i = 0; i < tdLen; i++)
         {
-            xTr = xData[i]; yTr = yData[i];
+            xTr = trainingData[0][i]; yTr = trainingData[1][i];
             yEval = evaluate(xTr);
-            error = Math.abs( yEval - yTr );
-            fitness += error;
+            //System.out.printf("x input: %.2f, y expected: %.2f, y evaluated: %.2f\n",xTr,yTr,yEval);
+
+            fit = Math.abs( yEval - yTr );
+            //System.out.printf("Point fitness: abs( %.2f - %.2f ) = %.2f\n\n", yTr, yEval, fit);
+            fitness += fit;
         }
     }
 
