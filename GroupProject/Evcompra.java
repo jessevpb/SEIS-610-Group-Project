@@ -288,6 +288,23 @@ public class Evcompra
         }
     }
 
+    public double calcFitness(double xData[], double yData[]) 
+    {
+        this.fitness = 0;
+        double xTr, yTr, yEval, error;
+        int tdLen = xData.length; // assumes input arrays are the same length
+
+        for(int i = 0; i < tdLen; i++)
+        {
+            xTr = xData[i]; yTr = yData[i];
+            yEval = evaluate(xTr);
+            error = Math.abs( yEval - yTr );
+            fitness += error;
+        }
+        
+        return this.fitness;
+    }
+
     public void mutateTree(Node n)
     {
         if(n == null) return;
