@@ -268,7 +268,7 @@ public class Evcompra
         return fitness;
     }
 
-    public void setFitness(float fts)
+    public void setFitness(double fts)
     {
         this.fitness = fts;
     }
