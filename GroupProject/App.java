@@ -48,7 +48,7 @@ public class App
 
         for(i = 0; i < genSize; i++)
         {
-            trees[i].setFitness(testValuesX, testValuesY);
+            trees[i].calcFitness(testValuesX, testValuesY);
         }
 
         double fitnessScores[] = new double[genSize];
