@@ -45,14 +45,14 @@ public class App
 
     public App(Evcompra[] trees, double crossNum, double mutateNum, int genSize, double testValuesX[], double testValuesY[])
     {
-        
+
         for(i = 0; i < genSize; i++)
         {
-           // trees[i].setFitness(testValuesX);
+            trees[i].setFitness(testValuesX, testValuesY);
         }
-        
+
         double fitnessScores[] = new double[genSize];
-        
+
         fitnessScores = getFitnessArray(trees);
         Arrays.sort(fitnessScores);
 
@@ -83,14 +83,14 @@ public class App
         }
 
     }
-    
-        double fits[] = new double[40];
-        
+
+    double fits[] = new double[40];
+
     private double[] getFitnessArray(Evcompra[] testTrees){
 
         for(i = 0; i < testTrees.length; i++)
         {   
-             fits[i] = testTrees[i].getFitness();
+            fits[i] = testTrees[i].getFitness();
         }
         return fits;
     }
@@ -112,6 +112,13 @@ public class App
         }
 
         for(i = 0; i < crossoverNumber; i++)
+        {
+            Evcompra tree = survivingTrees[j];
+            newTrees[i] = tree;
+            j++;
+        }
+
+        for(i = crossoverNumber+1; i < mutateNumber; i++)
         {         
             int rand1 = (int)(Math.random()*survivingPopulation);
             int rand2 = (int)(Math.random()*survivingPopulation);
@@ -129,7 +136,7 @@ public class App
             newTrees[i] = tree1;
         }
 
-        for(i = crossoverNumber+1; i < mutateNumber; i++)
+        for(i = mutateNumber+1; i < genSize; i++)
         {
             int rand1 = (int)(Math.random()*survivingPopulation);
             tree1 = survivingTrees[rand1];
@@ -137,11 +144,6 @@ public class App
             newTrees[i] = tree1;
         }
 
-        for(i = mutateNumber+1; i < genSize; i++)
-        {
-            newTrees[i] = testTrees[j];
-            j++;
-        }
 
         return newTrees;
     }
