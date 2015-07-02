@@ -60,27 +60,20 @@ public class RunApp extends JFrame implements ActionListener{
         setLocation(750,300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(5,0));
-        {
-            run.addActionListener(this);
-        }
-
+ 
+        first.add(cross);
+        first.add(crossNum);
+        second.add(mutate);
+        second.add(mutateNum);
+        third.add(gene);
+        third.add(geneNum);
         fourth.add(Xs);
         fourth.add(xVals);
         fourth.add(Ys);
         fourth.add(yVals);
-
         fifth.add(run);
-
-        first.add(cross);
-        first.add(crossNum);
-
-        second.add(mutate);
-        second.add(mutateNum);
-
-        third.add(gene);
-        third.add(geneNum);
-
-        add(first);
+        
+        add(first);      
         add(second);
         add(third);
         add(fourth);
@@ -102,12 +95,46 @@ public class RunApp extends JFrame implements ActionListener{
             crossoverPercent = Double.parseDouble(c);
             String m = mutateNum.getText();
             mutatePercent = Double.parseDouble(m);
-
-            double testValuesX[] = {-5,-3, 0, 2,  10};
-            double testValuesY[] = {12, 4, -.5, 1.5, 49.5};
-
-            new App(new Evcompra[generationSize], crossoverPercent, mutatePercent,
-            generationSize, testValuesX, testValuesY);
+            
+            //double testValuesX[] = {-5,-3, 0, 2,  10};
+            double testValuesX[] = csvToDoubles(xVals);
+            double testValuesY[] = csvToDoubles(yVals);
+            
+            // ************ TESTING ****************
+            System.out.printf("\nGen: %d, Cross: %.2f Mutation: %.2f\n",
+                                generationSize, crossoverPercent, mutatePercent);
+            System.out.println("X values");
+            for (double s : testValuesX) {
+            System.out.print(s + " ");
+            }
+            
+            System.out.println("\nY values");
+            for (double s : testValuesY) {
+            System.out.print(s + " ");
+            }
+            
+            //new App(new Evcompra[generationSize], crossoverPercent, mutatePercent,
+            //generationSize, testValuesX, testValuesY);
         }
+    }
+    
+    // Takes a text field of comma-separated floating points and returns
+    // an array of doubles. No error checking.
+    public double[] csvToDoubles(JTextField jtf)
+    {
+        String inStr;
+        String[] inTokens;
+        String delimiters = "[ ,]+";
+        double out[];
+        
+        inStr = jtf.getText();
+        inTokens = inStr.split(delimiters);
+        out = new double[inTokens.length];
+        
+        for (int i = 0; i < out.length; i++) {
+            out[i] = Double.parseDouble(inTokens[i]);
+        }
+        
+        return out;
     }
 }
